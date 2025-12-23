@@ -1,0 +1,10 @@
+parameters:
+    level: max
+    paths:
+        - src
+        - tests
+    ignoreErrors:
+        - message: "#^Used constant Pyncer\\\\Search\\\\DEFAULT_LOCALE not found\\.$#"
+        - message: "#^Used constant Pyncer\\\\Search\\\\DEFAULT_MIN_KEYWORD_LENGTH not found\\.$#"
+        - message: "#^Constant Pyncer\\\\Search\\\\DEFAULT_LOCALE not found\\.$#"
+        - message: "#^Constant Pyncer\\\\Search\\\\DEFAULT_MIN_KEYWORD_LENGTH not found\\.$#"
