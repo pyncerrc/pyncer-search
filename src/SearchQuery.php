@@ -180,7 +180,7 @@ class SearchQuery
             }
 
             // Accidental end quote with no space infront
-            if (str_ends_with($token, '"') || str_ends_with($token, "'")) {
+            if (str_ends_with($token, '"')) {
                 $inQuotes = true;
                 $quoteType = substr($token, -1);
 
@@ -190,6 +190,7 @@ class SearchQuery
                     $inGroup = false;
                     $currentTokens[] = $token;
                     $terms[] = $this->getGroupTerm($currentTokens);
+                    $currentTokens = [];
                     continue;
                 }
             }
@@ -215,16 +216,18 @@ class SearchQuery
         }
 
         // Should the user not close a quote
-        if ($inQuotes) {
-            $terms[] = new SearchQueryTerm(
-                term: implode(' ', $currentTokens),
-                exclude: $isExclude,
-                phrase: true,
-                locale: $this->locale,
-                minKeywordLength: $this->minKeywordLength,
-            );
-        } elseif ($inGroup && $currentTokens) {
-            $terms[] = $this->getGroupTerm($currentTokens);
+        if ($currentTokens) {
+            if ($inQuotes) {
+                $terms[] = new SearchQueryTerm(
+                    term: implode(' ', $currentTokens),
+                    exclude: $isExclude,
+                    phrase: true,
+                    locale: $this->locale,
+                    minKeywordLength: $this->minKeywordLength,
+                );
+            } elseif ($inGroup) {
+                $terms[] = $this->getGroupTerm($currentTokens);
+            }
         }
 
         return $terms;

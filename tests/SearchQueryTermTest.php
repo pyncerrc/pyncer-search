@@ -32,5 +32,29 @@ class SearchQueryTermTest extends TestCase
                 'case',
             ]
         );
+
+        $term = new \Pyncer\Search\SearchQueryTerm(
+            'Tes\''
+        );
+
+        $this->assertEquals(
+            $term->getKeywords(),
+            [
+                'Tes\'',
+            ]
+        );
+
+        $this->assertEquals(
+            count($term->getPermutations()),
+            1
+        );
+
+        $this->assertEquals($term->getNormalizedTerm(), 'tes');
+        $this->assertEquals(
+            $term->getNormalizedTerms(),
+            [
+                'tes',
+            ]
+        );
     }
 }

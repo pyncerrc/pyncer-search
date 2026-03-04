@@ -2,5 +2,5 @@
 composer.lock
 phpunit.xml
 phpstan.neon
-.phpunit.result.cache
+.phpunit.cache
 TODO

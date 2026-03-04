@@ -29,5 +29,14 @@ class SearchQueryTest extends TestCase
 
         $query = new \Pyncer\Search\SearchQuery('');
         $this->assertTrue(count($query->getTerms()) === 0);
+
+        $query = new \Pyncer\Search\SearchQuery('tes\'');
+        $this->assertTrue(count($query->getTerms()) === 1);
+
+        $query = new \Pyncer\Search\SearchQuery('\'test quotes\' case');
+        $this->assertTrue(count($query->getTerms()) === 2);
+
+        $query = new \Pyncer\Search\SearchQuery('"test quotes "case');
+        $this->assertTrue(count($query->getTerms()) === 2);
     }
 }
